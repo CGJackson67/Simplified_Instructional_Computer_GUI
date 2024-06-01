@@ -11,12 +11,25 @@ class AssemblyStatusPanel(wx.Panel):
         vertical_box_sizer = wx.BoxSizer(wx.VERTICAL)
 
         # CONTROLS
-        txt_assembly_status = wx.TextCtrl(self, style=wx.TE_READONLY | wx.TE_MULTILINE)
+        self.txt_assembly_status = wx.TextCtrl(self, style=wx.TE_READONLY | wx.TE_MULTILINE)
+        monospace_font = wx.Font(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, u'Consolas')
+        self.txt_assembly_status.SetFont(monospace_font)
 
         # LAYOUT
-        vertical_box_sizer.Add(txt_assembly_status, proportion=1, flag=wx.EXPAND | wx.ALL, border=20)
+        vertical_box_sizer.Add(self.txt_assembly_status, proportion=1, flag=wx.EXPAND | wx.ALL, border=20)
 
         self.SetSizer(vertical_box_sizer)
 
-        for i in range(300):
-            txt_assembly_status.write(text="Test Pattern\n")
+        # for i in range(300):
+        #     txt_assembly_status.write(text="Test Pattern\n")
+
+    def set_assembly_status(self, assembly_status, assembly_error=False):
+        self.txt_assembly_status.SetForegroundColour(wx.BLACK)
+
+        if assembly_error:
+            self.txt_assembly_status.SetForegroundColour(wx.RED)
+
+        self.txt_assembly_status.AppendText(text=assembly_status)
+
+    def clear(self):
+        self.txt_assembly_status.Clear()
