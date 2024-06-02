@@ -22,3 +22,6 @@ class AssemblyListingPanel(wx.Panel):
 
     def load_assembly_listing_file(self, assembly_listing_file_path):
         self.txt_assembly_listing.LoadFile(assembly_listing_file_path)
+
+    def clear(self):
+        self.txt_assembly_listing.Clear()

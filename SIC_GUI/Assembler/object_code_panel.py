@@ -22,3 +22,6 @@ class ObjectCodePanel(wx.Panel):
 
     def load_object_code_file(self, object_code_file_path):
         self.txt_object_code.LoadFile(object_code_file_path)
+
+    def clear(self):
+        self.txt_object_code.Clear()

@@ -27,10 +27,7 @@ class ControlPanel(wx.Panel):
 
         self.SetSizer(grid_bag_sizer)
 
-        # EVENT HANDLING
-        self.Bind(wx.EVT_FILEPICKER_CHANGED, self.file_picker_change_handler)
-
-    def file_picker_change_handler(self, event):
+    def enable_assemble_button(self):
         file_path = self.fpc_program_file.GetPath()
 
         if file_path == "":
