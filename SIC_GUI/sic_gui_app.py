@@ -6,7 +6,7 @@ from SIC_GUI.Simulator.simulator_panel import SimulatorPanel
 
 class SICGUIFrame(wx.Frame):
     def __init__(self, parent, title):
-        super(SICGUIFrame, self).__init__(parent, title=title, size=(1100, 800))
+        super(SICGUIFrame, self).__init__(parent, title=title, size=(1250, 800))
 
         menubar = wx.MenuBar()
 
@@ -35,14 +35,14 @@ class SICGUIFrame(wx.Frame):
 
     def menu_handler(self, event):
         if event.GetId() == 103:
-            exit_dialog = wx.MessageDialog(None,"Do you want to exit?", "Exit Confirm", wx.YES_NO | wx.ICON_QUESTION)
+            exit_dialog = wx.MessageDialog(None, "Do you want to exit?", "Exit Confirm", wx.YES_NO | wx.ICON_QUESTION)
             confirm_response = exit_dialog.ShowModal()
 
             if confirm_response == wx.ID_YES:
                 self.Destroy()
 
     def close_handler(self, event):
-        exit_dialog = wx.MessageDialog(None,"Do you want to exit?", "Exit Confirm", wx.YES_NO | wx.ICON_QUESTION)
+        exit_dialog = wx.MessageDialog(None, "Do you want to exit?", "Exit Confirm", wx.YES_NO | wx.ICON_QUESTION)
         confirm_response = exit_dialog.ShowModal()
 
         if confirm_response == wx.ID_YES:

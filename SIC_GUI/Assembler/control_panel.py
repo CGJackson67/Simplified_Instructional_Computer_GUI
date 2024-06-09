@@ -16,7 +16,10 @@ class ControlPanel(wx.Panel):
         self.lbl_program_file = wx.StaticText(self, label="Program File")
         self.fpc_program_file = wx.FilePickerCtrl(self, path=SIC_DEFAULT_WORKING_DIRECTORY, message="Select Assembly Program File", wildcard="*.asm")
         self.fpc_program_file.GetTextCtrl().SetEditable(False)
+        self.fpc_program_file.SetToolTip("Click Browse button to select *.asm program file")
+
         self.btn_assemble = wx.Button(self, label="Assemble")
+        self.btn_assemble.SetToolTip("Click to assemble selected program file")
         self.btn_assemble.Disable()
 
         # LAYOUT

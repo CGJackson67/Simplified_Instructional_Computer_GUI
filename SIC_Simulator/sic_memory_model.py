@@ -69,6 +69,8 @@ class SICMemoryModel:
         return self.memory_model_dict
 
     def dump_memory(self):
+        memory_dump_string = ""
+
         # Rows 0 through 2048 (32767 / 16)
         for row in range(self.ROWS_IN_MEMORY_DUMP):
             # Memory Row Format:
@@ -89,7 +91,10 @@ class SICMemoryModel:
                 else:
                     memory_row_string += self.SMALL_SEPARATOR + self.memory_model_dict[byte_address_dec]
 
-            print(memory_row_string)
+            # print(memory_row_string)
+            memory_dump_string += memory_row_string + "\n"
+
+        return memory_dump_string
 
 
 MEMORY_MODEL = SICMemoryModel()

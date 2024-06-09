@@ -13,11 +13,18 @@ class PeripheralsPanel(wx.Panel):
         # SIZER
         horizontal_box_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        left_panel = InputDeviceF1Panel(self)
-        right_panel = OutputDevice05Panel(self)
+        self.left_panel = InputDeviceF1Panel(self)
+        self.right_panel = OutputDevice05Panel(self)
 
         # LAYOUT
-        horizontal_box_sizer.Add(left_panel, proportion=1, flag=wx.EXPAND | wx.ALL, border=10)
-        horizontal_box_sizer.Add(right_panel, proportion=1, flag=wx.EXPAND | wx.TOP | wx.BOTTOM | wx.RIGHT, border=10)
+        horizontal_box_sizer.Add(self.left_panel, proportion=1, flag=wx.EXPAND | wx.ALL, border=10)
+        horizontal_box_sizer.Add(self.right_panel, proportion=1, flag=wx.EXPAND | wx.TOP | wx.BOTTOM | wx.RIGHT,
+                                 border=10)
 
         self.SetSizer(horizontal_box_sizer)
+
+    def initialize_input_device_f1(self):
+        self.left_panel.initialize_input_device_f1()
+
+    def initialize_output_device_05(self):
+        self.right_panel.initialize()

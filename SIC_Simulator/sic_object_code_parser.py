@@ -1,9 +1,4 @@
-import os.path
-
-from SIC_Simulator.sic_configuration import SIC_DEFAULT_WORKING_DIRECTORY
-from SIC_Utilities.sic_constants import SIC_OBJECT_CODE_FILE_EXTENSION
 from SIC_Utilities.sic_converter import test_for_hex, hex_string_to_dec
-from SIC_Utilities.sic_messaging import print_error, print_status
 
 
 class SICObjectCodeParserError(Exception):

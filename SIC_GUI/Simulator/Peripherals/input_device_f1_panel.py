@@ -13,21 +13,25 @@ class InputDeviceF1Panel(wx.Panel):
         grid_bag_sizer = wx.GridBagSizer(hgap=10, vgap=10)
 
         # PANELS
-        input_panel = InputPanel(self)
+        self.input_panel = InputPanel(self)
 
         # CONTROLS
         lbl_info = wx.StaticText(self, label="Input one character and press Enter")
         btn_enter = wx.Button(self, label="Enter")
-        btn_new_line = wx.Button(self, label="New Line")
+        btn_enter.SetToolTip("Click to input character")
+        btn_newline = wx.Button(self, label="Newline")
+        btn_newline.SetToolTip("Click to input a newline character")
         btn_end_of_record = wx.Button(self, label="End of Record")
+        btn_end_of_record.SetToolTip("Click to input an end of record")
         btn_end_of_file = wx.Button(self, label="End of File")
+        btn_end_of_file.SetToolTip("Click to input an end of file")
 
         # LAYOUT
-        grid_bag_sizer.Add(lbl_info, flag=wx.ALIGN_LEFT | wx.EXPAND, pos=(0, 0), span=(0,4))
-        grid_bag_sizer.Add(input_panel, flag=wx.EXPAND, pos=(1, 0), span=(0,4))
+        grid_bag_sizer.Add(lbl_info, flag=wx.ALIGN_LEFT | wx.EXPAND, pos=(0, 0), span=(1, 4))
+        grid_bag_sizer.Add(self.input_panel, flag=wx.EXPAND, pos=(1, 0), span=(1, 4))
         grid_bag_sizer.Add(btn_end_of_file, pos=(2, 0))
         grid_bag_sizer.Add(btn_end_of_record, pos=(2, 1))
-        grid_bag_sizer.Add(btn_new_line, pos=(2, 2))
+        grid_bag_sizer.Add(btn_newline, pos=(2, 2))
         grid_bag_sizer.Add(btn_enter, pos=(2, 3))
 
         # STATIC BOX
@@ -43,3 +47,6 @@ class InputDeviceF1Panel(wx.Panel):
         vertical_layout.Add(static_box_sizer, proportion=0, flag=wx.EXPAND)
 
         self.SetSizer(vertical_layout)
+
+    def initialize_input_device_f1(self):
+        self.input_panel.initialize()

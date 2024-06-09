@@ -11,9 +11,10 @@ class AssemblyStatusPanel(wx.Panel):
         vertical_box_sizer = wx.BoxSizer(wx.VERTICAL)
 
         # CONTROLS
+        MONOSPACED_FONT = wx.Font(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, u'Consolas')
+
         self.txt_assembly_status = wx.TextCtrl(self, style=wx.TE_READONLY | wx.TE_MULTILINE)
-        monospace_font = wx.Font(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, u'Consolas')
-        self.txt_assembly_status.SetFont(monospace_font)
+        self.txt_assembly_status.SetFont(MONOSPACED_FONT)
 
         # LAYOUT
         vertical_box_sizer.Add(self.txt_assembly_status, proportion=1, flag=wx.EXPAND | wx.ALL, border=20)

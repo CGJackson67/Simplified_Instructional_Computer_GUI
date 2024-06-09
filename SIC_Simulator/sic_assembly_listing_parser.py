@@ -1,9 +1,4 @@
-import os.path
-import sys
 
-from SIC_Simulator.sic_configuration import SIC_DEFAULT_WORKING_DIRECTORY
-from SIC_Utilities.sic_constants import SIC_ASSEMBLY_LISTING_FILE_EXTENSION
-from SIC_Utilities.sic_messaging import print_error, print_status
 
 class SICAssemblyListingParserError(Exception):
     pass

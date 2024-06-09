@@ -11,10 +11,13 @@ class OutputDevice05Panel(wx.Panel):
         vertical_box_sizer = wx.BoxSizer(wx.VERTICAL)
 
         # CONTROLS
-        txt_output = wx.TextCtrl(self, style=wx.TE_READONLY | wx.TE_MULTILINE)
+        MONOSPACED_FONT = wx.Font(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, u'Consolas')
+
+        self.txt_output = wx.TextCtrl(self, style=wx.TE_READONLY | wx.TE_MULTILINE)
+        self.txt_output.SetFont(MONOSPACED_FONT)
 
         # LAYOUT
-        vertical_box_sizer.Add(txt_output, proportion=1, flag=wx.EXPAND)
+        vertical_box_sizer.Add(self.txt_output, proportion=1, flag=wx.EXPAND)
 
         # STATIC BOX
         output_device_05_static_box = wx.StaticBox(self, label="Output Device 05")
@@ -23,3 +26,6 @@ class OutputDevice05Panel(wx.Panel):
         static_box_sizer.Add(vertical_box_sizer, proportion=1, flag=wx.EXPAND | wx.ALL, border=10)
 
         self.SetSizer(static_box_sizer)
+
+    def initialize(self):
+        self.txt_output.Clear()
