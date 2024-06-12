@@ -411,7 +411,9 @@ def execute_operation(REGISTER_DICT, MEMORY_MODEL, simulator_panel):
             if register_a_hex_string == "000000" and register_x_hex_string == "000000":
                 is_in_EOF_state = True
 
-            byte_string = read_byte_input_device_F1(is_in_EOF_state)
+            byte_string = simulator_panel.read_byte_input_device_F1(is_in_EOF_state)
+
+            print(">>> byte_string", byte_string)
 
             register_a_hex_string = register_a_hex_string[:4] + byte_string
             REGISTER_DICT[REGISTER_A].set_hex_string(register_a_hex_string)
@@ -620,7 +622,8 @@ def execute_operation(REGISTER_DICT, MEMORY_MODEL, simulator_panel):
             # Device specified by (m) <- (A)[rightmost byte]
             register_a_hex_string = REGISTER_DICT[REGISTER_A].get_hex_string()
             byte_string = register_a_hex_string[4:]
-            write_byte_to_output_device_05(byte_string)
+
+            simulator_panel.write_byte_output_device_05(write_byte_to_output_device_05(byte_string))
 
             continue_execution = True
             return continue_execution

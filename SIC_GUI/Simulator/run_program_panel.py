@@ -22,8 +22,8 @@ class RunProgramPanel(wx.Panel):
 
         self.SetSizer(horizontal_box_sizer)
 
-    def update_memory_text_ctrl(self):
-        self.right_panel.update_memory_text_ctrl()
+    def update_memory_text_ctrl(self, memory_address_hex_string="0"):
+        self.right_panel.update_memory_text_ctrl(memory_address_hex_string)
 
 
     def update_register_text_ctrls(self):

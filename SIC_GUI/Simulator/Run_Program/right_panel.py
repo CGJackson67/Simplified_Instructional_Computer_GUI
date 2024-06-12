@@ -1,6 +1,7 @@
 import wx
 
 from SIC_Simulator.sic_memory_model import MEMORY_MODEL
+from SIC_Utilities.sic_converter import hex_string_to_dec
 
 
 class RightPanel(wx.Panel):
@@ -29,7 +30,11 @@ class RightPanel(wx.Panel):
 
         self.SetSizer(static_box_sizer)
 
-    def update_memory_text_ctrl(self):
+    def update_memory_text_ctrl(self, memory_address_hex_string="0"):
         self.txt_memory.Clear()
         self.txt_memory.WriteText(MEMORY_MODEL.dump_memory())
-        self.txt_memory.ShowPosition(0)
+
+        # Use the memory address to calculate the text position to display
+        memory_address_dec = hex_string_to_dec(memory_address_hex_string)
+        y_coordinate = memory_address_dec // 16
+        self.txt_memory.ShowPosition(self.txt_memory.XYToPosition(0, y_coordinate))
