@@ -413,8 +413,6 @@ def execute_operation(REGISTER_DICT, MEMORY_MODEL, simulator_panel):
 
             byte_string = simulator_panel.read_byte_input_device_F1(is_in_EOF_state)
 
-            print(">>> byte_string", byte_string)
-
             register_a_hex_string = register_a_hex_string[:4] + byte_string
             REGISTER_DICT[REGISTER_A].set_hex_string(register_a_hex_string)
 
