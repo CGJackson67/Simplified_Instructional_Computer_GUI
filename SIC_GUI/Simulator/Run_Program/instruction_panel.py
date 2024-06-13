@@ -11,12 +11,17 @@ class InstructionPanel(wx.Panel):
         horizontal_box_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
         # CONTROLS
+        MONOSPACED_FONT = wx.Font(10, wx.MODERN, wx.NORMAL, wx.NORMAL, False, u'Consolas')
 
-        txt_line_of_code = wx.TextCtrl(self, style=wx.TE_READONLY | wx.EXPAND)
-        txt_line_of_code.SetMaxLength(71)
-        txt_line_of_code.SetValue("2064     WLOOP     TD       OUTPUT                              E02079")
+        self.txt_line_of_code = wx.TextCtrl(self, style=wx.TE_READONLY | wx.EXPAND)
+        self.txt_line_of_code.SetMaxLength(71)
+        self.txt_line_of_code.SetFont(MONOSPACED_FONT)
 
         # LAYOUT
-        horizontal_box_sizer.Add(txt_line_of_code, proportion=1)
+        horizontal_box_sizer.Add(self.txt_line_of_code, proportion=1)
 
         self.SetSizer(horizontal_box_sizer)
+
+
+    def update_instruction_text_ctrl(self, line_of_code):
+        self.txt_line_of_code.SetValue(line_of_code)

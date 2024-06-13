@@ -1,0 +1,138 @@
+SIC ASSEMBLY LANGUAGE RULES
+===========================
+
+COLUMN RULES Page 52
+=================================================
+Four white space delimited columns in this order:
+LABEL, OPCODE, OPERAND, REMARKS
+All Columns are right justified
+
+
+INPUT RULES Page 455
+===============================================================================
+1) The LABEL on a SOURCE PROGRAM statement, if present, must begin in column 1 
+of the statement.  The OPCODE field is separated from LABEL field bay at least
+one blank; if no LABEL is present, the OPCODE may begin anywhere after column 1
+
+2) LABELS may be from 1 to 6 characters in length.  The first character must be
+alphabetic (A-Z); each of the remaining characters may be alphabetic or numeric 
+(A-Z) or (0-9)
+
+3) The OPCODE field must contain one of the SIC mnemonic opcodes, or one of the 
+ASSEMBLE DIRECTIVE: BYTE, WORD, RESB, RESW, START, END
+
+4) An OPERAND may be either a SYMBOL (which appears as a LABEL in the program) 
+or a HEXIDECIMAL number that represents an actual machine address.  HEXIDECIMAL
+numbers used in this way must begin with a leading zero (to distinguish them
+from SYMBOLS) and must be between 0000 and 0FFFF in value
+
+5) A HEXIDECIMAL string OPERAND in a BYTE directive must be of the form
+X'hhh...', where each h is a character representing a HEXIDECIMAL digit (0-9 or
+A-F).  There must be an even number of such HEXIDECIMAL digits.  The maximum
+length of the string is 32 HEX digits (representing 16 bytes in memory)
+
+6)The SOURCE PROGRAM may contain as many as 500 distinct LABELS
+
+
+OUTPUT RULES Page 455
+==================================================================================
+1) The ASSEMBLY LISTING should show each source program statement (including 
+any comments), together with the current LOCATION COUNTER value, the OBJECT CODE
+generated, and any ERROR MESSAGES
+
+2) The OBJECT PROGRAM should occupy no address greater than HEXIDECIMAL FFFF
+
+3) The OBJECT PROGRAM should not be generated if any ASSEMBLY ERRORS are detected
+
+
+
+
+
+INFERRED RULES Page 45
+==================================================================================
+1) Line Length = 95 characters max
+2) Commented lines are indicated when the first character encountered is a period (.)
+2a) Blank lines are not allowed
+2b) All code must be in capital letters (not enforced in REMARKS)
+3) Column based.  Four Columns: LABEL, OPCODE, OPERANDS, REMARKS
+
+4) LABEL
+4a) LABEL is optional, must start in first column if present
+4b) First character must be alphabetic (A-Z)
+4c) All other characters can be alphabetic or numeric (A-Z or 0-9)
+4d) Max LABEL Size = 6 characters
+4e) Min LABEL Size = 1 character
+4f) Column Width = 10 characters
+4g) Column Count = 1-10 (1-based index)
+4h) Column Count = 0-9 ( 0-based index)
+
+5) OPCODE
+5a) Must be an OPCODE mnemonic or an ASSEMBLER DIRECTIVE 
+5b) START must be the first opcode encountered
+5c) Max OPCODE Size = 5 characters
+5d) Min OPCODE Size = 1 character
+5e) Column Width = 9 characters
+5f) Column Count = 11-19 (1-based index)
+5g) Column Count = 10-18 ( 0-based index)
+5h) Assembly processing stops after END is encountered
+
+6) OPERAND 
+6a) OPERAND will not be present with OPCODE RSUB
+6b) An OPERAND may be either a SYMBOL (which appears as a LABEL in the program) 
+or a HEXIDECIMAL number that represents an actual machine address.  HEXIDECIMAL
+numbers used in this way must begin with a leading zero (to distinguish them
+from SYMBOLS) and must be between 0000 and 0FFFF in value 
+6c) A HEXIDECIMAL string OPERAND in a BYTE directive must be of the form X'HEX VALUE(0-9, A-F)' or C'ASCII CHARS'
+HEX VALUES must an even number of such HEXIDECIMAL digits.  The maximum length of the string is 32 HEX digits 
+(35 characters total, representing 16 bytes in memory).  EXAMPLE:  X'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH'
+ASCII CHARACTERS can have a maximum of 32 characters (C'1-32 ASCII CHARS')
+6d) Indexed Addressing is indicated by adding the modifier ",X" following
+the OPERAND.  EXAMPLE:
+			LDCH		BUFFER,X
+IE: Memory address of BUFFER plus value in the X register.  
+This is a way to address an indexed list of bytes or words
+6e) OPERANDS can be marked up with C'ccc' for Character or X'hhh...' for 
+HEXIDECIMAL number, and can be a DECIMAL value if not otherwise marked up
+6f) Max OPERAND Size = 35 characters (LABEL, HEXIDECIMAL, DECIMAL, or Character)
+6g) Min OPERAND Size = 1 character
+6h) Column Width = 36 characters
+6i) Column Count = 20-55 (1-based index)
+6j) Column Count = 19-54 ( 0-based index)
+
+7) REMARKS 
+7a) REMARKS are optional
+7b) Free Text
+7c) Max Remark Size = 30 characters
+7d) Min Remark Size = 0 characters
+7e) Column Width = 30 characters
+7f) Column Count = 66-95 (1-based index)
+7g) Column Count = 65-94 ( 0-based index)
+
+
+
+ASSEMBLY LISTING FILE RULES
+===========================
+
+COLUMN RULES Page 47
+=================================================
+Five white space delimited columns in this order:
+LOC, LABEL, OPCODE, OPERAND, OBJECT CODE
+All Columns are right justified
+
+COLUMN WIDTHS Page 47
+=====================
+LOC			9 characters
+LABEL		10 characters 
+OPCODE		9 characters
+OPERAND 	36 characters
+OBJECT CODE	36 characters
+
+COLUMN FORMAT Page 47
+=====================
+LOC			Valid 4-digit hex memory address (0000-7FFF)
+OBJECT CODE Typically a 6-digit hex value representing a
+			2-digit OPCODE and a 4-digit MEMORY ADDRESS.
+			With BYTE this column can contain up to 32 characters.
+			With WORD it will contain a 6-digit hex value corresponding 
+			to the specified dec integer value.
+			With START, END, RESW and RESB this column will have no entry

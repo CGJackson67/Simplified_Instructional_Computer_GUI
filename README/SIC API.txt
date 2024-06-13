@@ -1,0 +1,157 @@
+SIC_Assembler
+	sic_assembler
+	    SICAssemblerError(Exception)
+		get_byte_assembly_directive_byte_count(operand_string)
+		assembler_pass_one(parsed_code_dict_list)
+		format_assembly_listing_column(code_token, column_width)
+		create_object_code_for_byte(line_of_code_dict)
+		create_object_code_for_word(line_of_code_dict)
+		create_object_code(line_of_code_dict, label_dict)
+		create_assembly_listing_line(line_of_code_dict)
+		create_object_code_text_record_header(location_counter)
+		create_object_code_text_record(object_code_text_record_header, object_code_text_record_body)
+		assembler_pass_two(parsed_code_dict_list, assembly_code_file_path)
+		verify_program_file_path(program_file_name)
+		MAIN()
+	sic_assembly_parser
+	    SICAssemblyParserError(Exception)
+		test_for_comment_line(line_of_code)
+		test_for_label(line_of_code)
+		test_for_indexed_addressing(operand)
+		validate_label(label)
+		validate_opcode(opcode)
+		validate_lone_opcode(opcode)
+		validate_start_operand(operand)
+		validate_byte_operand(operand)
+		validate_word_operand(operand)
+		validate_resb_operand(operand)
+		validate_resw_operand(operand)
+		validate_nonspecific_operand(operand)
+		validate_operand(operand, opcode)
+		get_byte_character_string(line_of_code)
+		handle_byte_character_string(parsed_token_list, byte_character_string)
+		parse_assembly_code_file(assembly_code_file_path)
+	sic_configuration
+
+SIC_Peripherals
+    sic_input_device_F1
+        read_byte_input_device_F1(is_in_EOF_state: bool)
+        test_input_device_F1()
+    sic_output_device_05
+        initialize_output_device_05()
+        test_output_device_05()
+        write_byte_to_output_device_05(byte_string: str)
+
+SIC_Simulator
+	sic_assembly_listing_parser
+	    SICAssemblyListingParserError(Exception)
+		sic_assembly_listing_parser(assembly_listing_file)
+		print_assembly_listing_line(parsed_assembly_listing_dict, register_pc)
+	sic_configuration
+	sic_loader
+		load_program_object_code(parsed_object_code_dict_list)
+	sic_memory_model
+	    SICMemoryModelError(Exception)
+	    test_for_dec_memory_address_in_range(self, memory_address_dec_value: int)
+		get_byte(self, memory_address_dec: int)
+		get_bytes(self, memory_address_dec: int, number_of_bytes: int)
+		set_byte(self, memory_address_dec: int, byte_string: str)
+		initialize_memory(self)
+		dump_memory(self)
+		MEMORY_MODEL
+	sic_object_code_parser
+	    SICObjectCodeParserError(Exception)
+		parse_header_record(unparsed_line_of_object_code)
+		parse_text_record(unparsed_line_of_object_code)
+		parse_end_record(unparsed_line_of_object_code)
+		sic_object_code_parser(object_code_file)
+	sic_operation_executor
+		test_for_memory_address_in_range(memory_address_hex_string)
+		test_for_indexed_addressing(memory_address_hex_string)
+		create_indexed_address(memory_address_hex_string, REGISTER_DICT)
+		execute_operation(REGISTER_DICT, memory_model_dict)
+	sic_register_model
+	    SICRegisterContentsError(Exception)
+		initialize_register(self)
+		get_register_name(self)
+		get_formatted_register_name(self)
+		hex_to_bin(self, hex_string)
+		set_hex_string(self, hex_string)
+		get_hex_string(self)
+		get_formatted_hex_string(self)
+		bin_to_hex(self, bin_string)
+		set_bin_string(self, bin_string)
+		get_bin_string(self)
+		get_formatted_bin_string(self)
+		REGISTER_DICT
+		dump_registers()
+		initialize_registers()
+	sic_simulator
+	    SICSimulatorError(Exception)
+		verify_and_open_program_files(program_file_name)
+		MAIN()
+	
+SIC_Utilities
+	sic_constants
+		COMMENT_LINE_INDICATOR
+		BYTES_IN_MEMORY
+		BITS_IN_WORD
+		BYTES_IN_WORD
+		BIN_TO_HEX_DICT
+		DEC_TO_HEX_DICT
+		HEX_DIGIT_SET
+		HEX_TO_BIN_DICT
+		HEX_TO_DEC_DICT
+		INITIALIZATION_CHARACTER
+		LONE_OPCODE_VALIDATION_SET
+		MINIMUM_BYTE_OPERAND_LENGTH
+		MAXIMUM_BYTE_OPERAND_LENGTH
+		MINIMUM_INTEGER
+		MAXIMUM_INTEGER
+		MINIMUM_MEMORY_ADDRESS_DEC
+		MAXIMUM_MEMORY_ADDRESS_DEC
+		MAXIMUM_NUMBER_OF_LABELS
+		MAXIMUM_LENGTH_OF_OPERAND
+		MAXIMUM_LENGTH_OF_START_OPERAND
+		MINIMUM_RESB
+		MAXIMUM_RESB
+		MINIMUM_RESW
+		MAXIMUM_RESW		
+		MEMORY_ADDRESS_STRING_LENGTH
+		NUMBER_OF_BITS_IN_AN_INTEGER
+		OBJECT_CODE_TEXT_RECORD_BODY_LENGTH
+		OPCODE_TO_HEX_DICT
+		HEX_TO_OPCODE_DICT
+		OPCODE_VALIDATION_SET
+		TO_INDEXED_ADDRESSING_DICT
+		FROM_INDEXED_ADDRESSING_DICT
+		LOC_COLUMN_WIDTH
+		LABEL_COLUMN_WIDTH
+		OPCODE_COLUMN_WIDTH
+		OPERAND_COLUMN_WIDTH
+		OBJECT_CODE_COLUMN_WIDTH
+		SIC_ASSEMBLY_LISTING_FILE_EXTENSION
+		SIC_OBJECT_CODE_FILE_EXTENSION
+		SIC_ASSEMBLY_CODE_FILE_EXTENSION
+		SW_LESS_THAN
+		SW_EQUAL
+		SW_GREATER_THAN
+	sic_converter
+	    SICConverterError(Exception)
+		dec_to_hex_string(dec_value: int)
+		dec_to_memory_address_hex_string(dec_value: int)
+		hex_string_to_dec(hex_string: str)
+		test_for_hex(hex_string)
+		bin_word_to_hex_word(bin_word_string)
+		hex_word_to_bin_word(hex_word_string)
+	sic_integer
+	    SICIntegerError(Exception)
+		bin_string_to_dec(bin_value_string: str)
+		dec_to_bin_string(dec_value: int)
+		dec_to_hex_string(dec_value)
+		hex_string_to_dec(hex_string)
+		hex_to_bin(hex_string)
+		bin_to_hex(bin_string)
+	sic_messaging
+		print_status(text_line_1, text_line_2=None)
+		print_error(text_line_1, text_line_2=None)

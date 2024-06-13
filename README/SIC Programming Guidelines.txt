@@ -1,0 +1,11 @@
+PROGRAMMING GUIDELINES
+======================
+1) We will not correct assembly code or assembly coding errors
+2) All assembly code must be in capital letters - not enforced in REMARKS
+3) Assembly code parsing stops when the END opcode is encountered.  
+   The END operand is not used and will not be processed.  Instead it will be discarded
+4) We will pad hex memory addresses with leading zeros
+5) Name errors after the modules that raise them.  EX: SICMODULENAMEError
+6) It's ok to do some validation checks in the converter modules
+7) Create a CONSTANTS module.  Alphabetize CONSTANTS in this module
+8) Handle positive case first with IF-ELIF-ELSE statements
