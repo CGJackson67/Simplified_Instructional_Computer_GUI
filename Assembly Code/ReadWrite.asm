@@ -1,4 +1,4 @@
-. Based on example assembly code
+. Based on example assembly code 
 . from chapter 2 page 45
 . Used to exercise the SIC Assembler
 . and the SIC Simulator

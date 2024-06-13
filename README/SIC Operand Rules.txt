@@ -1,0 +1,50 @@
+This function validates parsed operand tokens.
+The function depends on being passed a valid opcode from the same line of code.
+Rules for validating the operand:
+If opcode is START:
+  1) Operand must be a valid memory address hex string.
+     No addition decoration should be present
+If opcode is END:
+  1) Operand is optional, and not used.  Will not be processed
+  2) Operand can be a string that follows label rules.
+     See validate_label() function above
+  3) Operand can be a valid memory address hex string.
+      No addition decoration should be present
+  NOTE: No Object code is generated with END   
+If opcode is BYTE:
+  1) Operand can be either a hex string or a string or characters
+  2A) If operand is a hex string it must be in the 
+      form "X'H'" where H is string of a valid hex digits
+  2B) The hex string must contain an even number of characters,
+      and it must be 2 to 32 characters in length
+  3A) If operand is a character string it must be in the 
+      form "C'A'" where A is string of a valid ascii character
+  3B) The character string must contain an even number of characters,
+      and it must be 1 to 32 characters in length
+If opcode is WORD:
+  1) Can be a decimal integer in the range supported
+     by the SIC architecture (-8388608 to 8388607)
+If opcode is RESB:
+  1) Must be a positive decimal integer
+  2) Cannot be larger than the number of
+     possible bytes in memory: 32768
+  NOTE: This is only a very loose restriction.
+        It will not protect reserving more
+        memory than is available (max of 32768 BYTES)
+If opcode is RESW:
+  1) Must be a positive decimal integer
+  2) Cannot be larger than the number of
+     possible words in memory: 10922 (32768 BYTES / 3)
+  NOTE: This is only a very loose restriction.
+      It will not protect reserving more
+      memory than is available (max of 32768 BYTES)
+If opcode is ALL OTHER OPCODES:
+  1) Operand can be a string that follows label rules.
+     See validate_label() function above
+  2) Operand can be a valid hex memory address string
+     padded with a leading zero as the first character
+  3) Operand can be a hex memory address will 
+     be 1 to 5 characters in length
+  4) Each of the above may include the indexed
+     addressing indicator (,X) as the last two
+     characters in the string

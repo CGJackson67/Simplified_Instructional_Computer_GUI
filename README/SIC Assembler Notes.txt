@@ -1,0 +1,138 @@
+OPCODES Pages 496-498
+MNEMONIC		OPCODE		EFFECT
+==================================================
+ADD m			18			A <- (A) + (m..m+2)
+AND m			40			A <- (A) & (m..m+2)
+COMP m			28			(A) : (m..m+2)
+DIV m			24			A <- (A) / (m..m+2)
+J m				3C			PC <- m
+JEQ m			30			PC <- m if CC set to =
+JGT m			34			PC <- m if CC set to >
+JLT m			38			PC <- m if CC set to <
+JSUB m			48			L <- (PC); PC <- m
+LDA m			00			A <- (m..m+2)
+LDCH m			50			A[rightmost byte] <- (m) 
+LDL m			08			L <- (m..m+2)
+LDX m			04			X <- (m..m+2)
+MUL m			20			A <- (A) * (m..m+2)
+OR m			44			A <- (A) | (m..m+2)
+RD m			D8			A[rightmost byte] <- data from device specified by (m)
+RSUB			4C			PC <- (L)
+STA m 			0C			m..m+2 <- (A)
+STCH m			54			m <- (A)[rightmost byte]
+STL m			14			m..m+2 <- (L)
+STSW m			E8			m..m+2 <- (SW)
+STX m			10			m..m+2 <- (X)
+SUB m			1C			A <- (A) - (m..m+2)
+TD m			E0			Test device specified by (m)
+TIX m			2C			X <- (X) + 1; (X):(m..m+2)
+WD m			DC			Device specified by (m) <- (A)[rightmost byte]
+==================================================
+XOS				FF			Exit to the operating system
+TIXB m			FE			X <- (X) + 1; (X):(m..m+2)
+TIXW m			FD			X <- (X) + 3; (X):((m..m+2) * 3)
+
+
+ASSEMBLER DIRECTIVES Page 44
+=======================================================================
+START	Specify name and starting address for the program in HEX
+        Must be the first instruction in an assembly program
+END		Indicate the end of the source program and (optionally) specify
+		the first executable instruction in the program
+		The END opcode indicates the end of the assembly program,
+		No further processing after END is encountered.  
+		This directive can essentially be ignored
+BYTE	Generate  character or hexadecimal constant, occupying as
+		many bytes as needed to represent the constant
+		HEX VALUES: X'2-32 HEX DIGITS' NOTE: Must be an even number
+		ASCII CHAR: C'1-32 CHARACTERS'
+WORD	Generate one-word integer constant
+		DEC VALUE: -8,388,608 - 8,388,607 (24-bit signed integer)
+RESB	Reserve the indicated number of bytes for a data area
+		DEC VALUE: 0 - 32768 (maximum bytes in memory)
+RESW	Reserve the indicated number of words for a data area
+		DEC VALUE: 0 - 10922 ((32768 / 3) maximum words in memory)
+		
+
+DATA FORMATS Page 6
+================================================================================
+Integers are stored as 24-bit binary numbers; 2's Complement representation is
+used for negative values.  Characters are stored using their 8-bit ASCII codes.
+There is no floating-point hardware on the standard version of SIC
+INTEGER RANGE (24-bit Signed Integers)
+DEC VALUE: -8,388,608 - 8,388,607 (24-bit signed integer)
+
+
+INSTRUCTION FORMAT Page 6
+=====================================
+
+[OPCODE 8][X 1][ADDRESS 15] = 24 bits
+
+
+ADDRESSING MODES Page 6
+======================================================
+MODES		INDICATION		TARGET ADDRESS CALCULATION
+======================================================
+DIRECT		x = 0			TA = address
+INDIRECT	x = 1			TA = address + (X)		
+
+DEVICE READY CODE Page 18
+=======================================================================
+Opcode TD (TEST DEVICE) sets the SW register to "<" (3C) if device is 
+ready and to "=" (3D) if the device is not ready.  TD should be called 
+before opcodes RD or WD are used
+
+
+INDEXED ADDRESSING IN OPERAND Page 44
+================================================================================
+Indexed Addressing is indicated by adding the modifer ",X" following the operand
+EXAMPLE:
+			LDCH		BUFFER,X
+			
+IE: Memory address of BUFFER plus value in the X register.  
+
+
+MEMORY Page 5
+================================================================================
+Memory consists of 8-bit BYTES; any 3 consecutive bytes form a WORD (24 bits).  
+All addresses on SIC are byte addresses; WORDS are addressed by the location of
+their lowest numbered BYTE.  There are a total of 32,768 (2^15) BYTES in the
+SIC computer memory
+
+
+
+
+REGISTERS Page 5
+MNEMONIC		NUMBER		SPECIAL USE
+=============================================================================================================
+A				0			Accumulator; Used for arithmetic operations
+X				1			Index Register; Used for addressing
+L				2			Linkage Register; The JSUB instruction stores the return address in this register
+PC				8			Program Counter; Contains the address of the next instruction for execution.
+							Increment after instruction decode but before instruction execution
+SW				9			Status Word; Contains a variety of information, including a Condition Code (CC)
+
+
+MEMORY STRUCTURE Page 125
+========================================================
+ADDRESS		CONTENTS	
+=======		============================================
+0000		--------	--------	--------	--------
+0010		--------	--------	--------	--------
+								...
+0FF0		--------	--------	--------	--------
+1000		14103348	20390010	36281030	30101548
+1010		20613C10	0300102A	0C103900	102D0C10
+								...
+7FEF		--------	--------	--------	--------
+7FFF		--------	--------	--------	--------
+
+Memory ADDRESSES are in HEX.  
+ADDRESSES start at 0000:H and go up to 7FFF:H (32,767:D for a total of 32,768:D bytes)
+Memory LOCATIONS are BYTE ADDRESSED
+The contents of memory are displayed in HEX (4 BITS each)
+Two consecutive HEX characters represent 1 BYTE (8 BITS)
+Each ROW displays 16:D BYTES in memory
+Each ROW ADDRESS is incremented by 16:D (10:H)
+Memory LOCATION 1000:H is where ASSEMBLY CODE begins LOADING by default
+

@@ -1,0 +1,146 @@
+DATA FORMATS Page 6
+================================================================================
+Integers are stored as 24-bit binary numbers; 2's Complement representation is
+used for negative values.  
+
+2's Complement requires that the left-most bit be reserved as the sign-bit, with
+0 indicating a positive number and 1 indicating a negative number.
+
+Because of the sign-bit, the largest integer that can be represented will only 
+be 23 bits long  (sign-bit (1 bit)  + integer (23 bits) = 24 bits)
+
+BIN _111 1111 1111 1111 1111 1111 = DEC 8,388,607
+
+     0000 0000 0111 1111 1112 2222 -> 24 bits
+	 1234 5678 9012 3456 7890 1234 
+
+This means that the range of integer values the SIC computer can support is
+SIC INTEGER RANGE: -8,388,608 to +8,388,607
+
+
+
+2's COMPLEMENT
+===================================================================================
+The SIC will store negative numbers in 2's Complement representation.  
+SUBTRACTION will be accomplished by ADDING the 2's Complement
+
+DEC 4 will be stored in SIC as BIN 0000 0000 0000 0000 0000 0100
+
+DEC -4 will be represented in BIN as the 2's Complement of this binary number.
+
+There are two steps to convert to 2's compliment...
+
+1)First invert all of the digits in the binary number
+
+DEC 4 = BIN 0000 0000 0000 0000 0000 0100 -> BIN 1111 1111 1111 1111 1111 1011
+
+2) Then add 1
+
+BIN 1111 1111 1111 1111 1111 1011
+   +                            1
+    -----------------------------
+BIN 1111 1111 1111 1111 1111 1100  = DEC -4
+
+To convert back to DEC, do the opposite
+
+1) First subtract 1
+
+BIN 1111 1111 1111 1111 1111 1100
+   -                            1
+    -----------------------------
+BIN 1111 1111 1111 1111 1111 1011  
+
+2) Then invert all of the digits 
+
+BIN 1111 1111 1111 1111 1111 1011 -> BIN 0000 0000 0000 0000 0000 0100 = DEC 4
+
+3) Then restore the negative sign on the decimal number
+
+     DEC -4
+
+
+
+
+
+
+
+
+
+
+ARITHMETIC USING 2's COMPLEMENT
+=====================================================================================
+ADDITION of TWO POSITIVE NUMBERS - Positive numbers are added without changes
+
+DEC 6 + 4 = 10
+
+BIN 0000 0000 0000 0000 0000 0110
+   +0000 0000 0000 0000 0000 0100
+    -----------------------------
+	0000 0000 0000 0000 0000 1011 = DEC 10
+	
+SUBTRACTION - Subtraction is acommplished by taking the 2's Complement of the second 
+number and then adding to the first number
+
+DEC 6 - 4 = 2
+
+DEC 6 + (-4) = 2
+
+1) Take the 2's Complement of BIN 0000 0000 0000 0000 0000 0100 to get the negative 
+   representation
+   
+DEC -4 = BIN 0000 0000 0000 0000 0000 0100 -> BIN 1111 1111 1111 1111 1111 1100
+
+2) Add the two binary numbers
+
+BIN 0000 0000 0000 0000 0000 0110
+   +1111 1111 1111 1111 1111 1100
+    -----------------------------
+	0000 0000 0000 0000 0000 0010 = DEC 2
+	
+SUBTRACTION OF TWO NEGATIVE NUMBERS - Use the 2's Complent of the first number and 
+add it to the reversed 2's Complement of the second number
+
+DEC -6 - (-4) = -2
+
+DEC -6 + 4 = -2
+
+1) USE the 2's Complement corresponding to DEC -6
+
+BIN 0000 0000 0000 0000 0000 0110 -> 1111 1111 1111 1111 1111 1001
+                                    +                            1
+									 -----------------------------
+                                     1111 1111 1111 1111 1111 1010 = DEC -6
+									 
+2) Reverse the 2's Complement of the second number corresponding to DEC -4
+
+BIN 1111 1111 1111 1111 1111 1100
+   -                            1
+    -----------------------------
+BIN 1111 1111 1111 1111 1111 1011 -> 0000 0000 0000 0000 0000 0100 = DEC 4
+
+3) Add the two binary numbers
+									 
+BIN 1111 1111 1111 1111 1111 1010
+   +0000 0000 0000 0000 0000 0100
+    -----------------------------   
+    1111 1111 1111 1111 1111 1110
+	
+
+
+
+
+
+
+
+4) Reverse the 2's Complement on this binary number to verify that it is a DEC -2
+
+BIN 1111 1111 1111 1111 1111 1110
+   -                            1
+    -----------------------------
+	1111 1111 1111 1111 1111 1101 -> 0000 0000 0000 0000 0000 0010 = DEC 2
+	
+5) Restore the negative sign
+
+DEC -2
+	
+
